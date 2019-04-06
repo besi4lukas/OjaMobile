@@ -1,11 +1,536 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-        <title>Blank App</title>
+        <title>Oja</title>
+        <!-- Js Files -->
+        <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.5.js"></script>
+
+        <!-- CSS Files -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link href='https://fonts.googleapis.com/css?family=ABeeZee' rel='stylesheet'>
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.css">
+
+        <!--Firebase Script -->
+        <script src="https://www.gstatic.com/firebasejs/5.9.3/firebase.js"></script>
+        
+        <!-- Firebase App is always required and must be first -->
+        <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+
+        <!-- Add additional services that you want to use -->
+        <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-firestore.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-messaging.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-functions.js"></script>
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyCmE5n6qb0sydXqVZ-EO2ciQW5uESzdY7E",
+                authDomain: "ojaserver-69e8b.firebaseapp.com",
+                databaseURL: "https://ojaserver-69e8b.firebaseio.com",
+                projectId: "ojaserver-69e8b",
+                storageBucket: "ojaserver-69e8b.appspot.com",
+                messagingSenderId: "306068935322"
+            };
+            firebase.initializeApp(config);
+        </script>
+        <script type="text/javascript">
+            window.history.forward();
+            function noBack() { window.history.forward(); }
+        </script>
+        
     </head>
-    <body>
+        
+
+    <body style="background-color:white; font-family: ABeeZee" 
+    onload="noBack();"
+    onpageshow="if (event.persisted) noBack();" 
+    onunload="">
+
+
+
+
+    <!-- Start of Login page -->
+        <div data-role="page" id="login-page" style="background-color:white" >
+    
+            <div role="main" class="ui-content" style="background-color:white">
+               
+             <h1 style="font-size:80px; text-align: center; color:green ; margin-top:0%;font-family: -apple-system, 
+             BlinkMacSystemFont, 'Segoe UI', 
+             Roboto, Oxygen, Ubuntu, 
+             Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif "> ọja 
+            </h1>
+            <p style="text-align: center; font-size: 10px">Your product search engine</p> 
+            <p style="text-align:center; color:red" id="error-login"></p>
+                 <!-- Login Fields -->
+                 <!-- Input field for username -->
+                <div>    
+                    <input type="email" name="email" data-mini="true"  id="email" placeholder="Email" autocomplete="off">
+                </div>
+
+                 <!--Input fields for password -->
+                <div>
+                    <input type="password"  name="password" data-mini="true" id="pwd" placeholder="Password" autocomplete="off">
+                </div>
+                <div style="margin-top:5%">
+                <a href="" style="text-decoration:none; color:black; font-size: 10px">Forgot password ?</a>
+                </div>
+                 <!-- Button for Login form -->
+                <div style="margin-top:5%">
+                    <button 
+                    class="ui-btn ui-icon-user ui-btn-icon-left ui-shadow-icon ui-btn-b show-page-loading-msg" 
+                    style="background-color:green; border-color:green;"
+                    data-theme="a" 
+                    data-textonly="false" 
+                    data-textvisible="true" 
+                    data-msgtext="Loading" data-inline="true"
+                    onclick="emailLogin()">Login</button>
+                </div>
+            
+             <!-- /End of Login Fields-->
+
+             <p style="text-align:center"> OR </p>
+
+             <!--Button for signing in with google-->
+             <div>
+                    <a href="" data-transition="slidedown"  class="ui-btn ui-btn" 
+                    style="background-color: white;
+                    border-color:#4E9CE5; color:#4E9CE5"
+                    onclick="googleLogin()"> Sign in with Google</a>
+                </div>
+
+                
+
+               <!-- Button for Skipping Login Page -->
+               <ul data-role="listview">
+                     <li data-icon="carat-r" style="text-align:center; background-color: white"><a href="#Home-basic-page" style="background-color:white">Skip</a></li>
+            </ul>
+                
+            </div><!-- /content -->
+    
+            <div data-role="footer" data-position="fixed">
+                <h4 style="color:grey">Don't have an account? <a href="#register-page1" data-transition="slidedown" style="text-decoration:none; color:black;">Sign Up</a></h4>
+            </div><!-- /footer -->
+
+        </div><!-- /End of Login page -->
+
+
+
+
+
+
+<!-- Start of Register page 1 -->
+        <div data-role="page" id="register-page1" style="background-color:white">
+    
+            <div role="main" class="ui-content" style="background-color:white">
+                       
+                <h1 style="font-size:80px; text-align: center; margin-top:0%;font-family: -apple-system, 
+                BlinkMacSystemFont, 'Segoe UI', 
+                Roboto, Oxygen, Ubuntu, 
+                Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: green "> ọja </h1>
+            
+                         <!-- Sign up Form -->
+                    <form onsubmit="" action="" method="POST">
+                         <!-- Input field for username -->
+                        <div>    
+                            <input type="text" name="fname" data-mini="true" id="fname" placeholder="First name" style="border-color:black">
+                        </div>
+                         <!--Input fields for password -->
+                        <div>
+                            <input type="text"  name="lname" data-mini="true" id="lname" placeholder="Last name" autocomplete="off">
+                        </div>
+                       
+                    </form>
+                     <!-- /End of Sign up Form -->
+        
+                       <!-- Button for Skipping Login Page -->
+                        <div style="margin-top:5%">
+                            <a href="#register-page2" data-transition="flip" class="ui-btn ui-btn-b" 
+                            style="border-color:green; background-color: white; color: green">Next</a>
+                        </div>
+                    </div><!-- /content -->
+            
+                    <div data-role="footer" data-position="fixed">
+                        <h4 style="color:grey"> Already have an account? <a href="#login-page" style="text-decoration:none; color:black;">Log In</a></h4>
+                    </div><!-- /footer -->
+        
+                </div><!-- /End of Register page -->
+
+
+
+
+
+
+<!-- Start of Register page 2 -->
+<div data-role="page" id="register-page2" style="background-color:white">
+    
+        <div role="main" class="ui-content" style="background-color:white;">
+                   
+            <h1 style="font-size:80px; text-align: center; margin-top:0%; font-family: -apple-system, 
+            BlinkMacSystemFont, 'Segoe UI', 
+            Roboto, Oxygen, Ubuntu, 
+            Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color:green "> ọja </h1>
+        
+             <!-- Register Fields -->
+                
+                     <!-- Input field for username -->
+                    <div>    
+                        <input type="email" name="email" data-mini="true" id="email-register" placeholder="Email" autocomplete="off">
+                    </div>
+                     <!--Input fields for password -->
+                    <div>
+                        <input type="password"  name="lname" data-mini="true" id="pwd-register" placeholder="Password" autocomplete="off">
+                    </div>
+                
+                    <div>
+                            <input type="password"  name="lname" data-mini="true" id="cpwd" placeholder="Confirm Password" autocomplete="off">
+                    </div>
+                    <div style="margin-top:5%" >
+                            <button class="ui-btn ui-icon-user ui-btn-icon-left ui-shadow-icon ui-btn-b" 
+                            style="background-color:green; border-color:green;" onclick="emailSignUp()">Register</button>
+                    </div>
+                    <p style="text-align:center; color:red" id="error-register"></p>
+                   
+            <!-- /End of Register Fields -->
+    
+            
+                </div><!-- /content -->
+        
+                <div data-role="footer" data-position="fixed">
+                    <h4 style="color:grey"> Already have an account? <a href="#login-page" style="text-decoration:none; color:black;">Log In</a></h4>
+                </div><!-- /footer -->
+    
+            </div><!-- /End of Register page -->
+
+
+
+
+
+
+     <!-- Start of Basic Home Screen page -->
+                <div data-role="page" id="Home-basic-page" style="background-color:white;" >
+
+                      
+                        <a href="#login-page" 
+                        style="margin-left:2%;" 
+                        class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-delete ui-btn-icon-notext ui-btn-b ui-btn-inline">Bars</a>
+                  
+    
+                    
+                        
+                <div role="main" class="ui-content" style="background-color:white;">
+                        <h1 style="font-size:80px; 
+                        text-align: center; 
+                        font-family: -apple-system, 
+                        BlinkMacSystemFont, 'Segoe UI', 
+                        Roboto, Oxygen, Ubuntu, 
+                        Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color:green"> ọja </h1>
+        
+                     <!-- Search Form -->
+                    <form>
+                        <input type="search" name="search-1" id="search-1" placeholder="products, category" onclick="searchBasicPage();">
+                    </form>
+                 <!-- /End of Search Form -->
+    
+                </div><!-- /content -->
+        
+    
+            </div><!-- /End of Basic Home Page -->
+
+
+
+    <!-- Start of Home Screen page -->
+         <div data-role="page" id="Home-page" style="background-color:white" onload="noBack();">
+
+                <!--     <div data-role="header" style="height: 40px; background-color:white"> -->
+                        <!--         <a href="#left-panel" data-icon="bars" data-iconpos="notext" data-shadow="false" data-iconshadow="false"></a> -->
+                <!-- </div>/header -->
+                <a href="#left-panel" 
+                style="margin-left:2%;" 
+                class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-user ui-btn-icon-notext ui-btn-b ui-btn-inline">Bars</a>
+
+            <div role="main" class="ui-content" style="background-color:white; margin-top:0%">
+                    <h1 style="font-size:80px; 
+                    text-align: center; 
+                    font-family: -apple-system, 
+                    BlinkMacSystemFont, 'Segoe UI', 
+                    Roboto, Oxygen, Ubuntu, 
+                    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color:green"> ọja </h1>
+                 <!-- Search Form -->
+                <form>
+                    <input type="search" name="search-1" id="search" placeholder="products, category" onclick="searchPage();">
+                </form>
+             <!-- /End of Search Form -->
+
+            </div><!-- /content -->
+
+                 <div data-role="panel" id="left-panel" data-display="overlay">
+                        <h1 style="font-size:30px; 
+                        text-align: center; 
+                        font-family: -apple-system, 
+                        BlinkMacSystemFont, 'Segoe UI', 
+                        Roboto, Oxygen, Ubuntu, 
+                        Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color:green"> ọja </h1>
+
+                            <ul data-role="listview"  style="background-color: white;">
+                                                <li data-icon="user" style=" 
+                                                    color:white; 
+                                                    padding-top: 5%"><a  href="#" style="background-color:white" id="fname-panel" >Firstname</a>
+                                                    <p style="padding-left:5% ;padding-top:5%; color:black ">Make money reporting </p>
+                                                </li>
+                                    </ul>
+
+                                    <ul data-role="listview" style="background-color:white">
+                                        <li data-icon="" style="padding-top: 15%">
+                                                <a href="#Help-page" data-transition="slideup" style="text-decoration:none; 
+                                                color:black; background-color: white">Help</a>
+                                        </li>
+                                        <li data-icon="shop">
+                                                <a href="#Free-products-page" data-transition="slideup" style="text-decoration:none; 
+                                                color:black; background-color: white">Free products</a>
+                                        </li>
+                                        <li data-icon="gear" style="padding-bottom:5%;">
+                                                <a href="#Settings-page" data-transition="slideup" style="text-decoration:none; 
+                                                color:black; background-color: white">Settings</a>
+                                        </li>
+                                    </ul>
+                                        
+                      
+                </div><!-- /panel -->
+
+        </div><!-- /End of Home  Screen Page -->
+
+
+
+
+
+
+    <!-- Start of Help page -->
+         <div data-role="page" id="Help-page" style="background-color:white" >
+
+                <a href="#Home-page" 
+                data-transition="slide"
+                style="margin-left:2%"
+                 class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-carat-l ui-btn-icon-notext ui-btn-b ui-btn-inline">Bars</a>
+
+            <div role="main" class="ui-content" style="background-color:white; margin-top:0%">
+                    <ul data-role="listview">
+                             <li data-role="list-divider" style="text-align:center; background-color: white">Help</li>
+                    </ul>
+                    <h1 style="font-size:60px; 
+                    text-align: center; 
+                    font-family: -apple-system, 
+                    BlinkMacSystemFont, 'Segoe UI', 
+                    Roboto, Oxygen, Ubuntu, 
+                    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: green"> ọja </h1>
+                 <!-- Search Help Form -->
+                <form>
+                    <!-- <label for="search-1">Search:</label> -->
+                    <input type="search" name="search-2" id="search-2" placeholder="ask a question">
+                </form>
+             <!-- /End of Search Help Form -->
+
+             <p style="padding-top:15%">
+                    Our mission is to guide everyone through local and 
+                    online markets by organizing information 
+                    about products and making it easily accesible
+            </p>
+
+            </div><!-- /content -->
+
+        </div><!-- /End of Help Page -->
+
+
+
+
+
+         <!-- Start of Free products Screen page -->
+                 <div data-role="page" id="Free-products-page" style="background-color:white" >
+
+                        <a href="#Home-page" 
+                        data-transition="slide"
+                        style="margin-left:2%" 
+                        class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-carat-l ui-btn-icon-notext ui-btn-b ui-btn-inline">Bars</a>
+
+        
+                    <div role="main" class="ui-content" style="background-color:white; margin-top:0%">
+                            <ul data-role="listview">
+                                     <li data-role="list-divider" style="text-align:center; background-color: white">Free products</li>
+                            </ul>
+                            <h1 style="font-size:60px; 
+                            text-align: center; 
+                            font-family: -apple-system, 
+                            BlinkMacSystemFont, 'Segoe UI', 
+                            Roboto, Oxygen, Ubuntu, 
+                            Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: green"> ọja </h1>
+    
+                         <!-- Content for free products -->
+                            
+                         <h3>No free product available</h3>
+    
+                         <!-- /End of Content for free products -->
+        
+                    </div><!-- /content -->
+        
+                </div><!-- /End of Free products Page -->
+
+
+
+
+
+        <!-- Start of Settings page -->
+        <div data-role="page" id="Settings-page" style="background-color:white" >
+
+                <a href="#Home-page" 
+                data-transition="slide"
+                style="margin-left:2%" 
+                class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-carat-l ui-btn-icon-notext ui-btn-b ui-btn-inline">Bars</a>
+
+                
+
+            <div role="main" class="ui-content" style="background-color:white; margin-top:0%">
+                    <ul data-role="listview">
+                             <li data-role="list-divider" style="text-align:center; background-color: white">Settings</li>
+                    </ul>
+                    <h1 style="font-size:60px; 
+                    text-align: center; 
+                    font-family: -apple-system, 
+                    BlinkMacSystemFont, 'Segoe UI', 
+                    Roboto, Oxygen, Ubuntu, 
+                    Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; color: green"> ọja </h1>
+
+                 <!-- Content for Settings -->
+                 <ul data-role="listview">
+                                    <li data-icon="user"><a href="#">Username</a>
+                                        <p style="padding-left:5%" >Edit/Update your profile</p>
+                                    </li>
+                                    <li><a href="#">Privacy</a>
+                                        <p style="padding-left:5%" >Manage the data you share with us</p>
+                                    </li>
+                                    <li><a href="#">Security</a>
+                                        <p style="padding-left:5%">Control your account security with 2-step verification </p>
+                                    </li>
+                                    <li><a href="#" style="color:red"
+                                        onclick="LogOut()">Sign Out</a></li>
+                                  
+                </ul>
+
+                 <!-- /End of Content for Settings -->
+
+            </div><!-- /content -->
+
+        </div><!-- /End of Settings Page -->
+
+
+
+     <!-- Start of Search Basic page -->
+
+                <div data-role="page" id="Search-basic-page" data-url="search-basic-page" style="background-color:white" >
+
+                        <a href="#Home-basic-page" 
+                        style="margin-left:2%" 
+                        class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-carat-l ui-btn-icon-notext ui-btn-b ui-btn-inline">Bars</a>
+        
+                    <div role="main" class="ui-content" style="background-color:white; margin-top:0%">
+        
+                        <!-- Search Help Form -->
+                        <form>
+                            <input type="search" data-mini="true" name="search" id="search-basic" placeholder="products, category">
+                         </form>
+                        <!-- /End of Search Help Form -->
+        
+                    </div><!-- /content -->
+        
+                </div><!-- /End of Search Basic Page -->
+
+
+
+
+
+
+     <!-- Start of Search page -->
+
+        <div data-role="page" id="Search-page" data-url="search-page" style="background-color:white" >
+
+                <a href="#Home-page" 
+                style="margin-left:2%" 
+                class="ui-nodisc-icon ui-btn ui-shadow ui-corner-all ui-icon-carat-l ui-btn-icon-notext ui-btn-b ui-btn-inline">Bars</a>
+
+            <div role="main" class="ui-content" style="background-color:white; margin-top:0%">
+
+                <!-- Search Help Form -->
+                 <form>
+                    <input type="search" data-mini="true" name="search" id="search-product" placeholder="products, category">
+                </form>
+                <!-- /End of Search Form -->
+
+            </div><!-- /content -->
+
+         </div><!-- /End of Search Page -->
+
+
+        <!--Swipe for panel-->
+        <script>
+            $( document ).on( "pagecreate", "#Home-page", function() {
+                $( document ).on( "swipeleft swiperight", "#Home-page", function( e ) {
+                 // We check if there is no open panel on the page because otherwise
+                // a swipe to close the left panel would also open the right panel (and v.v.).
+                // We do this by checking the data that the framework stores on the page element (panel: open).
+                 if ( $( ".ui-page-active" ).jqmData( "panel" ) !== "open" ) {
+                      if ( e.type === "swipeleft" ) {
+                     $( "#right-panel" ).panel( "open" );
+                    } else if ( e.type === "swiperight" ) {
+                      $( "#left-panel" ).panel( "open" );
+                      }
+                 }
+                });
+            });
+        </script>
+
+        <!-- Script for search input -->
+        <script>
+            function searchBasicPage() {
+                window.location.href="#Search-basic-page" ;
+            }
+
+            function searchPage() {
+                window.location.href="#Search-page" ;
+            }
+        </script>
+
+        <!-- Script for loader -->
+        <script>
+            $( document ).on( "click", ".show-page-loading-msg", function() {
+                 var $this = $( this ),
+                    theme = $this.jqmData( "theme" ) || $.mobile.loader.prototype.options.theme,
+                    msgText = $this.jqmData( "msgtext" ) || $.mobile.loader.prototype.options.text,
+                    textVisible = $this.jqmData( "textvisible" ) || $.mobile.loader.prototype.options.textVisible,
+                    textonly = !!$this.jqmData( "textonly" );
+                    html = $this.jqmData( "html" ) || "";
+             $.mobile.loading( "show", {
+                     text: msgText,
+                     textVisible: textVisible,
+                     theme: theme,
+                     textonly: textonly,
+                     html: html
+             });
+
+            setTimeout(function(){
+                $.mobile.loading( "hide" );
+            }, 4000) ;
+
+        });
+
+        
+        
+        </script>
+
+
+        <script type="text/javascript" src="js/app.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
     </body>
 </html>
